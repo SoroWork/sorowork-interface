@@ -1,4 +1,4 @@
-import { MapPin, Clock, DollarSign, Users } from 'lucide-react'
+import { MapPin, DollarSign, Users } from 'lucide-react'
 import { Task } from '../types'
 import { TASK_STATUS_COLORS, TASK_STATUS_LABELS } from '../lib/constants'
 import { formatUSDC, formatRelativeTime } from '../lib/format'
@@ -54,6 +54,26 @@ export function TaskCard({ task, onClick }: TaskCardProps) {
           ))}
         </div>
       )}
+    </div>
+  )
+}
+
+export function TaskCardSkeleton() {
+  return (
+    <div className="card p-5 animate-pulse space-y-3">
+      <div className="flex justify-between">
+        <div className="h-4 w-20 bg-white/10 rounded-full" />
+        <div className="h-4 w-16 bg-white/10 rounded" />
+      </div>
+      <div className="h-5 w-3/4 bg-white/10 rounded" />
+      <div className="space-y-2">
+        <div className="h-3 w-full bg-white/5 rounded" />
+        <div className="h-3 w-5/6 bg-white/5 rounded" />
+      </div>
+      <div className="flex gap-3">
+        <div className="h-4 w-20 bg-white/5 rounded" />
+        <div className="h-4 w-24 bg-white/5 rounded" />
+      </div>
     </div>
   )
 }

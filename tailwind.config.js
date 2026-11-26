@@ -5,10 +5,11 @@ export default {
     extend: {
       colors: {
         sorowork: {
-          navy: '#0a0f1e',
+          navy: { DEFAULT: '#0a0f1e', card: '#0f1629', hover: '#141b33' },
           card: '#0f1629',
           purple: { DEFAULT: '#6c47ff', light: '#8b6fff' },
           cyan: '#00d4ff',
+          blue: '#00d4ff',
         },
       },
       fontFamily: {
