@@ -1,0 +1,13 @@
+{
+  "name": "SoroWork",
+  "short_name": "SoroWork",
+  "description": "Community work paid trustlessly on Stellar",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0f1e",
+  "theme_color": "#6c47ff",
+  "icons": [
+    { "src": "/logo.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/logo.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
