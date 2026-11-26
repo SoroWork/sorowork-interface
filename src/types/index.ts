@@ -1,44 +1,52 @@
-export type TaskStatus = 'OPEN' | 'ASSIGNED' | 'SUBMITTED' | 'APPROVED' | 'CANCELLED'
-export type SubmissionStatus = 'PENDING' | 'APPROVED' | 'REJECTED'
-export type UserRole = 'ADMIN' | 'CREATOR' | 'CONTRIBUTOR'
+export interface Task {
+  id: string
+  title: string
+  description: string
+  rewardAmount: number
+  token: string
+  status: TaskStatus
+  tags: string[]
+  category: string
+  location?: TaskLocation
+  creatorId: string
+  creator?: UserProfile
+  communityId?: string
+  community?: Community
+  submissions?: Submission[]
+  createdAt: string
+  updatedAt: string
+}
 
-export interface User {
+export type TaskStatus = 'OPEN' | 'ASSIGNED' | 'SUBMITTED' | 'APPROVED' | 'CANCELLED'
+
+export interface TaskLocation {
+  address: string
+  lat?: number
+  lng?: number
+  radius?: number
+}
+
+export interface UserProfile {
   id: string
   walletAddress: string
   username: string
   bio?: string
   avatarUrl?: string
   reputation: number
-  role: UserRole
-  createdAt: string
-}
-
-export interface Task {
-  id: string
-  title: string
-  description: string
-  rewardAmount: string
-  token: string
-  status: TaskStatus
-  tags: string[]
-  creatorId: string
-  creator: User
-  communityId?: string
-  community?: Community
-  contractTaskId?: number
-  submissions?: Submission[]
+  role: 'ADMIN' | 'CREATOR' | 'CONTRIBUTOR'
+  tasksCompleted?: number
+  totalEarned?: number
   createdAt: string
 }
 
 export interface Submission {
   id: string
   taskId: string
-  task?: Task
   contributorId: string
-  contributor: User
+  contributor?: UserProfile
   evidenceUrl: string
   description?: string
-  status: SubmissionStatus
+  status: 'PENDING' | 'APPROVED' | 'REJECTED'
   createdAt: string
 }
 
@@ -49,37 +57,7 @@ export interface Community {
   logoUrl?: string
   memberCount?: number
   taskCount?: number
-  createdAt: string
-}
-
-export interface Notification {
-  id: string
-  userId: string
-  type: string
-  message: string
-  read: boolean
-  createdAt: string
-}
-
-export interface FeedActivity {
-  id: string
-  type: 'TASK_CREATED' | 'WORK_SUBMITTED' | 'WORK_APPROVED' | 'TIP_SENT' | 'USER_JOINED'
-  user: User
-  task?: Task
-  amount?: string
-  createdAt: string
-}
-
-export interface LeaderboardEntry {
-  rank: number
-  user: User
-  taskCount: number
-  totalEarned: string
-}
-
-export interface ApiError {
-  message: string
-  code?: string
+  totalDistributed?: number
 }
 
 export interface PaginatedResponse<T> {
@@ -87,4 +65,11 @@ export interface PaginatedResponse<T> {
   total: number
   page: number
   pageSize: number
+  hasMore: boolean
+}
+
+export interface ApiError {
+  error: string
+  message?: string
+  statusCode: number
 }
