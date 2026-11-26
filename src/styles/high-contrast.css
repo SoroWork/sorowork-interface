@@ -1,0 +1,30 @@
+.high-contrast {
+  --hc-border: rgba(255, 255, 255, 0.4);
+  --hc-text: #ffffff;
+  --hc-muted: rgba(255, 255, 255, 0.7);
+  --hc-focus: #00d4ff;
+}
+
+.high-contrast * {
+  border-color: var(--hc-border) !important;
+}
+
+.high-contrast body {
+  color: var(--hc-text);
+}
+
+.high-contrast .text-white\/40,
+.high-contrast .text-white\/50,
+.high-contrast .text-white\/60 {
+  color: var(--hc-muted) !important;
+}
+
+.high-contrast *:focus-visible {
+  outline: 2px solid var(--hc-focus) !important;
+  outline-offset: 2px !important;
+}
+
+.high-contrast button,
+.high-contrast a {
+  text-decoration-thickness: 2px;
+}
