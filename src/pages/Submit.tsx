@@ -46,14 +46,14 @@ export function Submit() {
 
       <div>
         <h1 className="text-2xl font-bold gradient-text">Submit Work</h1>
-        <p className="text-white/50 text-sm mt-1">Provide a link to your deliverable and a description</p>
+        <p className="text-white/50 text-sm mt-1">Upload proof of your completed work and a description</p>
       </div>
 
       <Card className="p-6">
         <form onSubmit={handleSubmit} className="space-y-4">
           <Input
             label="Evidence URL *"
-            placeholder="https://github.com/you/repo or link to deliverable"
+            placeholder="Link to photos, video, or other proof of completed work"
             value={evidenceUrl}
             onChange={(e) => setEvidenceUrl(e.target.value)}
             required
@@ -62,7 +62,7 @@ export function Submit() {
             <label className="text-sm text-white/70">Description</label>
             <textarea
               className="input-field resize-none h-32"
-              placeholder="Describe what you built, design decisions, how to test it..."
+              placeholder="Describe the work you completed, conditions, any notes..."
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             />
