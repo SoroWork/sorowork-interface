@@ -1,18 +1,18 @@
 # SoroWork Interface
 
-> **Work. Prove. Earn.** — The decentralized work-to-earn platform on Stellar/Soroban.
+> **Do the work. Prove it. Get paid.** — Community work, paid trustlessly on Stellar.
 
-React + Vite + TypeScript frontend for SoroWork. Connects to the [sorowork-backend](https://github.com/SoroWork/sorowork-backend) API and integrates Freighter wallet for Stellar.
+React + Vite + TypeScript frontend for SoroWork. Communities post real-world tasks — cleanups, road repairs, landscaping, painting, maintenance — and workers earn USDC for completing them. Connects to the [sorowork-backend](https://github.com/SoroWork/sorowork-backend) API and integrates Freighter wallet for Stellar.
 
 ## Features
 
-- **Discover** — Browse open bounties with search, status filters, and tag filters
-- **Task Detail** — Full bounty view with inline work submission
-- **Profile** — Contributor portfolios, reputation, contribution history
-- **Leaderboard** — Top earners ranked by reputation
+- **Discover** — Browse open community tasks with search, status filters, and category tags
+- **Task Detail** — Full task view with inline work submission (upload photos/video proof)
+- **Profile** — Worker portfolios, reputation score, contribution history
+- **Leaderboard** — Top community workers ranked by reputation
 - **Activity Feed** — Real-time platform activity stream
-- **Communities** — Join communities and collaborate on bounties
-- **Dashboard** — Creator view: manage bounties, review submissions
+- **Communities** — Join neighborhoods and groups, collaborate on local tasks
+- **Dashboard** — Manage your posted tasks, review worker submissions
 - **Admin Panel** — Platform analytics and user management
 - **Freighter Wallet** — Non-custodial Stellar wallet connect/disconnect
 
@@ -55,14 +55,15 @@ npm run dev
 
 | Route | Page |
 |---|---|
-| `/discover` | Browse bounties |
+| `/` | Landing page |
+| `/discover` | Browse community tasks |
 | `/tasks/:id` | Task detail + submit work |
-| `/profile/:walletAddress` | User profile |
-| `/leaderboard` | Top contributors |
+| `/profile/:walletAddress` | Worker profile |
+| `/leaderboard` | Top workers |
 | `/feed` | Activity feed |
 | `/communities` | Community listing |
 | `/notifications` | Your notifications |
-| `/dashboard` | Creator dashboard |
+| `/dashboard` | Task management dashboard |
 | `/admin` | Admin panel (admin role required) |
 
 ## Build
