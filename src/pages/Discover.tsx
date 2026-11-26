@@ -16,7 +16,7 @@ const STATUS_FILTERS: Array<{ label: string; value: TaskStatus | 'ALL' }> = [
   { label: 'Approved', value: 'APPROVED' },
 ]
 
-const POPULAR_TAGS = ['Rust', 'TypeScript', 'Soroban', 'React', 'Design', 'Docs', 'Testing', 'DevOps']
+const POPULAR_TAGS = ['Cleaning', 'Road Repair', 'Landscaping', 'Painting', 'Plumbing', 'Electrical', 'Construction', 'Delivery']
 
 export function Discover() {
   const [search, setSearch] = useState('')
@@ -36,7 +36,7 @@ export function Discover() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold gradient-text">Discover Bounties</h1>
-          <p className="text-white/50 text-sm mt-1">Find tasks, prove your skills, earn USDC</p>
+          <p className="text-white/50 text-sm mt-1">Find community tasks, do the work, earn USDC</p>
         </div>
         <Link to="/tasks/create">
           <Button variant="gradient" size="md">
