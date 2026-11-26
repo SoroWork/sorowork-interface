@@ -1,91 +1,67 @@
-import { useParams } from 'react-router-dom'
-import { Star, Award, Briefcase, Calendar } from 'lucide-react'
-import { useProfile, useContributions } from '../hooks/useProfile'
-import { UserAvatar } from '../components/UserAvatar'
-import { Badge } from '../components/ui/Badge'
-import { Card } from '../components/ui/Card'
-import { truncateAddress, formatAmount, formatDate } from '../lib/utils'
+import { useState } from 'react'
+import { User, Award, Briefcase, MapPin, Calendar, ExternalLink } from 'lucide-react'
+import { truncateAddress } from '../lib/format'
 
-export function Profile() {
-  const { walletAddress } = useParams<{ walletAddress: string }>()
-  const { data: profile, isLoading } = useProfile(walletAddress || null)
-  const { data: contributions } = useContributions(walletAddress || null)
-
-  if (isLoading) {
-    return (
-      <div className="animate-pulse space-y-4">
-        <div className="card p-6 flex gap-4">
-          <div className="w-20 h-20 rounded-full bg-white/10" />
-          <div className="space-y-2 flex-1">
-            <div className="h-5 bg-white/10 rounded w-32" />
-            <div className="h-3 bg-white/5 rounded w-48" />
-          </div>
-        </div>
-      </div>
-    )
-  }
-
-  if (!profile) {
-    return <div className="text-white/50 text-center py-16">Profile not found</div>
-  }
-
-  const totalEarned = contributions
-    ?.filter((c) => c.status === 'APPROVED')
-    .reduce((sum, c) => sum + parseFloat(c.task?.rewardAmount || '0'), 0) || 0
+export default function Profile() {
+  const [activeTab, setActiveTab] = useState<'completed' | 'active' | 'reputation'>('completed')
 
   return (
-    <div className="max-w-2xl mx-auto space-y-6">
-      <Card className="p-6">
-        <div className="flex gap-5 items-start">
-          <UserAvatar user={profile} size="lg" className="w-20 h-20 text-2xl shrink-0" />
-          <div className="flex-1 min-w-0">
-            <h1 className="text-xl font-bold">{profile.username}</h1>
-            <p className="text-sm text-white/40 font-mono mt-0.5">{truncateAddress(profile.walletAddress, 8)}</p>
-            {profile.bio && <p className="text-sm text-white/70 mt-2">{profile.bio}</p>}
-            <div className="flex items-center gap-4 mt-3 text-sm text-white/60">
-              <div className="flex items-center gap-1.5">
-                <Star size={14} className="text-yellow-400" />
-                <span>{profile.reputation} rep</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <Briefcase size={14} className="text-sorowork-blue" />
-                <span>{contributions?.length || 0} tasks</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <Award size={14} className="text-sorowork-purple-light" />
-                <span>{formatAmount(totalEarned)} earned</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <Calendar size={14} />
-                <span>Joined {formatDate(profile.createdAt)}</span>
+    <div className="min-h-screen bg-sorowork-navy text-white">
+      <div className="max-w-4xl mx-auto px-4 py-24">
+        <div className="card p-6 mb-6">
+          <div className="flex items-start gap-4">
+            <div className="w-20 h-20 rounded-full bg-gradient-to-br from-sorowork-purple to-sorowork-cyan flex items-center justify-center">
+              <User size={32} />
+            </div>
+            <div className="flex-1">
+              <h1 className="text-xl font-bold">Community Worker</h1>
+              <p className="text-sm text-white/40 font-mono mt-1">
+                {truncateAddress('GBZXN7PIRZGNMHGA7MUUUF4GWPY5AYPV6LY4UVIIDHJ7L3SCAPTUQAH', 8)}
+                <button className="ml-2 text-sorowork-cyan hover:text-sorowork-cyan/80">
+                  <ExternalLink size={12} />
+                </button>
+              </p>
+              <div className="flex gap-4 mt-3 text-xs text-white/50">
+                <span className="flex items-center gap-1"><MapPin size={12} /> Local Area</span>
+                <span className="flex items-center gap-1"><Calendar size={12} /> Joined Nov 2026</span>
               </div>
             </div>
           </div>
-        </div>
-      </Card>
 
-      <div>
-        <h2 className="font-semibold mb-3">Contributions ({contributions?.length || 0})</h2>
-        <div className="space-y-3">
-          {contributions?.map((sub) => (
-            <Card key={sub.id} className="p-4 flex items-center justify-between gap-3">
-              <div className="min-w-0">
-                <p className="font-medium text-sm truncate">{sub.task?.title || 'Task'}</p>
-                <p className="text-xs text-white/40 mt-0.5">{formatDate(sub.createdAt)}</p>
-              </div>
-              <div className="flex items-center gap-3 shrink-0">
-                {sub.task && (
-                  <span className="text-sorowork-blue text-sm font-medium">
-                    {formatAmount(sub.task.rewardAmount, sub.task.token)}
-                  </span>
-                )}
-                <Badge variant="status" status={sub.status}>{sub.status}</Badge>
-              </div>
-            </Card>
+          <div className="grid grid-cols-3 gap-4 mt-6 pt-6 border-t border-white/10">
+            <div className="text-center">
+              <p className="text-2xl font-bold">24</p>
+              <p className="text-xs text-white/40">Tasks Done</p>
+            </div>
+            <div className="text-center">
+              <p className="text-2xl font-bold text-sorowork-cyan">2,450</p>
+              <p className="text-xs text-white/40">USDC Earned</p>
+            </div>
+            <div className="text-center">
+              <p className="text-2xl font-bold text-sorowork-purple-light">87</p>
+              <p className="text-xs text-white/40">Reputation</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex gap-1 mb-4 bg-white/5 p-1 rounded-lg">
+          {(['completed', 'active', 'reputation'] as const).map(tab => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              className={`flex-1 py-2 text-sm rounded-md transition-colors capitalize ${
+                activeTab === tab ? 'bg-sorowork-purple text-white' : 'text-white/40 hover:text-white/60'
+              }`}
+            >
+              {tab === 'completed' && <Briefcase size={14} className="inline mr-1.5" />}
+              {tab === 'reputation' && <Award size={14} className="inline mr-1.5" />}
+              {tab}
+            </button>
           ))}
-          {!contributions?.length && (
-            <p className="text-white/40 text-sm text-center py-8">No contributions yet</p>
-          )}
+        </div>
+
+        <div className="card p-8 text-center text-white/30">
+          <p>Connect your wallet to view your {activeTab} tasks</p>
         </div>
       </div>
     </div>
