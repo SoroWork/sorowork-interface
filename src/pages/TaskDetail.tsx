@@ -108,7 +108,7 @@ export function TaskDetail() {
           <div className="space-y-3">
             <Input
               label="Evidence URL"
-              placeholder="https://github.com/you/repo or link to deliverable"
+              placeholder="Link to photos, video, or other proof of completed work"
               value={evidenceUrl}
               onChange={(e) => setEvidenceUrl(e.target.value)}
             />
@@ -116,7 +116,7 @@ export function TaskDetail() {
               <label className="text-sm text-white/70">Description (optional)</label>
               <textarea
                 className="input-field resize-none h-24"
-                placeholder="Describe what you built..."
+                placeholder="Describe the work you completed..."
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
               />
