@@ -2,6 +2,7 @@ import { Bell, Menu, X } from 'lucide-react'
 import { Link, NavLink } from 'react-router-dom'
 import { useState } from 'react'
 import { WalletButton } from '../WalletButton'
+import { Logo } from '../Logo'
 import { cn } from '../../lib/utils'
 
 const navLinks = [
@@ -17,11 +18,8 @@ export function Navbar() {
   return (
     <header className="sticky top-0 z-40 border-b border-white/10 bg-sorowork-navy/95 backdrop-blur">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
-        <Link to="/" className="flex items-center gap-2 shrink-0">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-sorowork-purple to-sorowork-blue flex items-center justify-center font-bold text-white text-sm">
-            SW
-          </div>
-          <span className="font-bold text-lg gradient-text hidden sm:block">SoroWork</span>
+        <Link to="/" className="shrink-0">
+          <Logo size={30} />
         </Link>
 
         <nav className="hidden md:flex items-center gap-1">
