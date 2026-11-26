@@ -44,6 +44,7 @@ export interface Submission {
   taskId: string
   contributorId: string
   contributor?: UserProfile
+  task?: Task
   evidenceUrl: string
   description?: string
   status: 'PENDING' | 'APPROVED' | 'REJECTED'
@@ -72,4 +73,37 @@ export interface ApiError {
   error: string
   message?: string
   statusCode: number
+}
+
+export type User = UserProfile
+
+export interface Notification {
+  id: string
+  userId: string
+  type: string
+  title: string
+  message: string
+  read: boolean
+  taskId?: string
+  createdAt: string
+}
+
+export interface FeedActivity {
+  id: string
+  type: 'TASK_CREATED' | 'WORK_SUBMITTED' | 'WORK_APPROVED' | 'TIP_SENT' | 'USER_JOINED'
+  user: UserProfile
+  task?: { id: string; title: string }
+  amount?: number
+  createdAt: string
+}
+
+export interface LeaderboardEntry {
+  id: string
+  walletAddress: string
+  username: string
+  avatarUrl?: string
+  reputation: number
+  tasksCompleted: number
+  totalEarned: number
+  rank: number
 }

@@ -18,9 +18,9 @@ export function SubmissionCard({ submission, isCreator, onApprove, onReject }: S
     <Card className="flex flex-col gap-3">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <UserAvatar user={submission.contributor} size="sm" />
+          <UserAvatar user={submission.contributor!} size="sm" />
           <div>
-            <p className="text-sm font-medium">{submission.contributor.username}</p>
+            <p className="text-sm font-medium">{submission.contributor?.username}</p>
             <p className="text-xs text-white/40">{formatRelativeTime(submission.createdAt)}</p>
           </div>
         </div>

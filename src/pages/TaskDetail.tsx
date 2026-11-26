@@ -75,7 +75,7 @@ export function TaskDetail() {
           </div>
           <div className="flex items-center gap-1.5">
             <User size={14} />
-            {task.creator.username}
+            {task.creator?.username}
           </div>
         </div>
 
@@ -86,9 +86,9 @@ export function TaskDetail() {
         </div>
 
         <div className="flex items-center gap-3 pt-3 border-t border-white/5">
-          <UserAvatar user={task.creator} size="md" />
+          <UserAvatar user={task.creator!} size="md" />
           <div>
-            <p className="font-medium text-sm">{task.creator.username}</p>
+            <p className="font-medium text-sm">{task.creator?.username}</p>
             <p className="text-xs text-white/40">Task Creator</p>
           </div>
           {canSubmit && !showSubmitForm && (

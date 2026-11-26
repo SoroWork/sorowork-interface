@@ -138,7 +138,7 @@ function ReputationMeter({ reputation, rank }: { reputation: number; rank?: numb
 function SubmissionsReceived({ tasks }: { tasks: Task[] }) {
   const tasksWithSubmissions = tasks.filter((t) => t.submissions && t.submissions.length > 0)
   const pendingReviews = tasksWithSubmissions
-    .flatMap((t) => (t.submissions || []).map((s) => ({ ...s, task: t })))
+    .flatMap((t) => (t.submissions || []).map((s) => ({ ...s, task: t as Task })))
     .filter((s) => s.status === 'PENDING')
     .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
 
@@ -164,10 +164,10 @@ function SubmissionsReceived({ tasks }: { tasks: Task[] }) {
               to={`/tasks/${sub.task.id}`}
               className="p-4 flex items-center gap-3 hover:bg-white/5 transition-colors group"
             >
-              <UserAvatar user={sub.contributor} size="sm" />
+              <UserAvatar user={sub.contributor!} size="sm" />
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-medium group-hover:text-sorowork-blue transition-colors truncate">
-                  {sub.contributor.username} submitted to <span className="text-white/60">{sub.task.title}</span>
+                  {sub.contributor?.username} submitted to <span className="text-white/60">{sub.task?.title}</span>
                 </p>
                 <p className="text-xs text-white/30 mt-0.5">{formatRelativeTime(sub.createdAt)}</p>
               </div>
@@ -281,7 +281,7 @@ function RecentActivity({ activities }: { activities: FeedActivity[] }) {
 
 function EarningsBreakdown({ tasks }: { tasks: Task[] }) {
   const approved = tasks.filter((t) => t.status === 'APPROVED')
-  const totalPaid = approved.reduce((sum, t) => sum + parseFloat(t.rewardAmount), 0)
+  const totalPaid = approved.reduce((sum, t) => sum + Number(t.rewardAmount), 0)
   const avgBounty = approved.length > 0 ? totalPaid / approved.length : 0
 
   const tagCounts: Record<string, { count: number; total: number }> = {}
@@ -289,7 +289,7 @@ function EarningsBreakdown({ tasks }: { tasks: Task[] }) {
     t.tags.forEach((tag) => {
       if (!tagCounts[tag]) tagCounts[tag] = { count: 0, total: 0 }
       tagCounts[tag].count++
-      tagCounts[tag].total += parseFloat(t.rewardAmount)
+      tagCounts[tag].total += Number(t.rewardAmount)
     })
   })
   const topTags = Object.entries(tagCounts)
@@ -406,10 +406,10 @@ export function Dashboard() {
   const approved = tasks.filter((t) => t.status === 'APPROVED').length
   const totalPaid = tasks
     .filter((t) => t.status === 'APPROVED')
-    .reduce((sum, t) => sum + parseFloat(t.rewardAmount), 0)
+    .reduce((sum, t) => sum + Number(t.rewardAmount), 0)
   const totalEarned = myContributions
     .filter((c) => c.status === 'APPROVED')
-    .reduce((sum, c) => sum + parseFloat(c.task?.rewardAmount || '0'), 0)
+    .reduce((sum, c) => sum + Number(c.task?.rewardAmount || 0), 0)
 
   const filteredTasks =
     taskFilter === 'ALL' ? tasks : tasks.filter((t) => t.status === taskFilter)

@@ -17,7 +17,7 @@ const activityConfig = {
 }
 
 function ActivityItem({ activity }: { activity: FeedActivity }) {
-  const cfg = activityConfig[activity.type] || activityConfig.USER_JOINED
+  const cfg = activityConfig[activity.type as keyof typeof activityConfig] || activityConfig.USER_JOINED
   const Icon = cfg.icon
 
   return (
